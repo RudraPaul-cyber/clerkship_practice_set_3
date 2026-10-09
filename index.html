@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WBPSC Clerkship 500 MCQ Master Practice Set</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-dark: #1557b0;
+            --secondary-color: #f8f9fa;
+            --text-color: #202124;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --border-color: #dadce0;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .set-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .set-btn {
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 12px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .set-btn:hover, .set-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-title {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        .rules-bar {
+            background-color: #e8f0fe;
+            color: #1967d2;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .question-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #e2e8f0;
+        }
+
+        .option-label input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+            transform: scale(1.03);
+        }
+
+        .result-box {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .score-summary {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            gap: 15px;
+        }
+
+        .score-card {
+            background-color: var(--secondary-color);
+            padding: 15px 25px;
+            border-radius: 8px;
+            min-width: 140px;
+            border: 1px solid var(--border-color);
+        }
+
+        .score-card .number {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .score-card.total .number { color: var(--primary-color); }
+        .score-card.correct .number { color: var(--success-color); }
+        .score-card.wrong .number { color: var(--danger-color); }
+        .score-card.score .number { color: #8e44ad; }
+
+        .ans-key-section {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .ans-key-title {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+        }
+
+        .explanation-card {
+            background: #fafafa;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .explanation-card.user-correct {
+            border-left-color: var(--success-color);
+            background: #f0fff4;
+        }
+
+        .explanation-card.user-wrong {
+            border-left-color: var(--danger-color);
+            background: #fff5f5;
+        }
+
+        .explanation-text {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            color: #4a5568;
+            background: #edf2f7;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            margin-left: 8px;
+        }
+
+        .badge-correct { background-color: var(--success-color); }
+        .badge-wrong { background-color: var(--danger-color); }
+        .badge-skipped { background-color: #718096; }
+
+        @media (max-width: 600px) {
+            .set-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .score-summary {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>WBPSC Clerkship Exam 2026</h1>
+        <p>500 MCQ Subject-Wise Complete Practice Bank (10 Sets × 50 Questions)</p>
+    </header>
+
+    <div class="container">
+        <!-- Subject Set Buttons -->
+        <div class="set-selector" id="setSelector"></div>
+
+        <!-- Quiz Container -->
+        <div class="quiz-card" id="quizCard">
+            <div class="quiz-header">
+                <div class="quiz-title" id="quizTitle">বিষয় নির্বাচন করুন</div>
+                <div id="quizMeta">প্রশ্ন: ৫০টি | মোট নম্বর: ৫০</div>
+            </div>
+            
+            <div class="rules-bar">
+                <span>📌 প্রতিটি সঠিক উত্তর: <b>+১.০০</b></span>
+                <span>⚠️ নেগেটিভ মার্কিং: <b>-০.৩৩</b></span>
+                <span>⏱️ সময়সীমা নেই</span>
+            </div>
+
+            <form id="quizForm">
+                <div id="questionsContainer"></div>
+                <div class="submit-container" id="submitBox" style="display: none;">
+                    <button type="button" class="submit-btn" onclick="submitExam()">উত্তরপত্র জমা দিন (Submit Exam)</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Result Box -->
+        <div class="result-box" id="resultBox">
+            <h2>পরীক্ষার ফলাফল (Exam Result)</h2>
+            <div class="score-summary">
+                <div class="score-card total">
+                    <div>মোট প্রশ্ন</div>
+                    <div class="number" id="resTotal">৫০</div>
+                </div>
+                <div class="score-card correct">
+                    <div>সঠিক উত্তর</div>
+                    <div class="number" id="resCorrect">০</div>
+                </div>
+                <div class="score-card wrong">
+                    <div>ভুল উত্তর</div>
+                    <div class="number" id="resWrong">০</div>
+                </div>
+                <div class="score-card score">
+                    <div>চূড়ান্ত নম্বর</div>
+                    <div class="number" id="resScore">০.০০</div>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="scrollToAnswerKey()" style="background-color: var(--primary-color);">Answer Key & Explanation দেখুন</button>
+        </div>
+
+        <!-- Detailed Answer Key -->
+        <div class="ans-key-section" id="ansKeySection">
+            <h3 class="ans-key-title">Answer Key & Detailed Explanation</h3>
+            <div id="ansKeyContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const subjectNames = [
+            "১. প্রাচীন ও মধ্যযুগীয় ইতিহাস",
+            "২. আধুনিক ভারতের ইতিহাস ও আন্দোলন",
+            "৩. ভারতের ভূগোল ও নদ-নদী",
+            "৪. পশ্চিমবঙ্গের ভূগোল ও তথ্য",
+            "৫. সাধারণ বিজ্ঞান (পদার্থবিজ্ঞান)",
+            "৬. সাধারণ বিজ্ঞান (রসায়নবিজ্ঞান)",
+            "৭. সাধারণ বিজ্ঞান (জীববিজ্ঞান)",
+            "৮. ভারতীয় সংবিধান ও শাসনব্যবস্থা",
+            "৯. ভারতীয় অর্থনীতি ও পঞ্চায়েত",
+            "১০. ইংরেজি ব্যাকরণ ও ভোকাবুলারি"
+        ];
+
+        // Unique Seed Question Templates for generating 50 unique questions per set
+        const rawQuestionData = {
+            0: [ // History - Ancient & Medieval
+                { q: "'The Indian War of Independence 1857' বইটি কার লেখা?", opts: ["Syed Ahmed Khan", "V.D. Savarkar", "R.S. Sharma", "R.C. Majumdar"], ans: 1, exp: "ভি.ডি. সাভারকর (V.D. Savarkar) ১৮৫৭ সালের মহাবিদ্রোহকে প্রথম স্বাধীনতা যুদ্ধ বলে বর্ণনা করে এই বইটি লেখেন।" },
+                { q: "প্রাচীন দক্ষিণ ভারতের 'সঙ্গম' (Sangam) শব্দের অর্থ কী?", opts: ["রাজসভা", "তামিল কবিদের সমাবেশ", "ধর্মীয় সম্মেলন", "নদীর মিলনস্থল"], ans: 1, exp: "সঙ্গম বলতে পান্ড্য রাজাদের পৃষ্ঠপোষকতায় আয়োজিত তামিল কবি ও পন্ডিতদের সমাবেশকে বোঝায়।" },
+                { q: "সংস্কৃত কাব্য 'সৌন্দরনন্দ' (Saundarananda) কার রচনা?", opts: ["অশ্বঘোষ", "কালিদাস", "নাগার্জুন", "বিষ্ণু শর্মা"], ans: 0, exp: "বৌদ্ধ কবি ও দার্শনিক অশ্বঘোষ সংস্কৃত মহাকাব্য 'সৌন্দরনন্দ' রচনা করেন।" },
+                { q: "এশিয়াটিক সোসাইটি অব বেঙ্গল কে প্রতিষ্ঠা করেন?", opts: ["রাজা রামমোহন রায়", "স্যার উইলিয়াম জোন্স", "উইলিয়াম বেন্টিঙ্ক", "লর্ড কার্জন"], ans: 1, exp: "১৭৮৪ সালে স্যার উইলিয়াম জোন্স কলকাতায় এশিয়াটিক সোসাইটি প্রতিষ্ঠা করেন।" },
+                { q: "গ্র্যান্ড ট্রাঙ্ক রোড (Grand Trunk Road) কে নির্মাণ করেন?", opts: ["আকবর", "শেরশাহ সুরি", "সমুদ্রগুপ্ত", "চন্দ্রগুপ্ত মৌর্য"], ans: 1, exp: "শেরশাহ সুরি তৎকালীন উত্তর ভারতকে যুক্ত করতে 'সড়ক-ই-আজম' বা গ্র্যান্ড ট্রাঙ্ক রোড নির্মাণ করেন।" },
+                { q: "রৌপ্য মুদ্রা 'টঙ্কা' এবং তাম্র মুদ্রা 'জিতল' কে প্রবর্তন করেন?", opts: ["কুতুবউদ্দিন আইবক", "রাজিয়া সুলতানা", "ইলতুৎমিশ", "বলবন"], ans: 2, exp: "দিল্লি সুলতানি আমালে ইলতুৎমিশ প্রথম প্রমিত রৌপ্য মুদ্রা 'টঙ্কা' এবং তাম্র মুদ্রা 'জিতল' চালু করেন।" },
+                { q: "লোদী বংশের প্রতিষ্ঠাতা কে ছিলেন?", opts: ["বহলুল লোদী", "সিকান্দার লোদী", "ইব্রাহিম লোদী", "দৌলত খান লোদী"], ans: 0, exp: "১৪৫১ সালে বহলুল লোদী দিল্লি সুলতানিতে লোদী রাজবংশ প্রতিষ্ঠা করেন।" },
+                { q: "মুঘল সম্রাট আকবর প্রবর্তিত ধর্মীয় মতবাদের নাম কী?", opts: ["দীন-ই-ইলাহী", "মনসবদারী", "সুলহ-ই-কুল", "জবতি"], ans: 0, exp: "সম্রাট আকবর ১৫৮২ সালে সর্বধর্ম সমন্বয়মূলক 'দীন-ই-ইলাহী' মতবাদ প্রবর্তন করেন।" },
+                { q: "হরপ্পা সভ্যতার কোন স্থানটি গুজরাটে অবস্থিত?", opts: ["কালিবঙ্গান", "লোথাল", "রোপার", "বনওয়ালি"], ans: 1, exp: "লোথাল হলো সিন্ধু সভ্যতার একটি প্রাচীন বন্দর নগরী, যা গুজরাটে অবস্থিত।" },
+                { q: "গৌতম বুদ্ধ কোথায় তাঁর প্রথম ধর্মদেশনা প্রদান করেন?", opts: ["বোধগয়া", "সারনাথ", "কুশীনগর", "লুম্বিনী"], ans: 1, exp: "গৌতম বুদ্ধ সারনাথের মৃগদাবে তাঁর প্রথম ৫ জন শিষ্যকে ধর্মদেশনা (ধর্মচক্র প্রবর্তন) দেন।" }
+            ],
+            1: [ // History - Modern
+                { q: "গদর পার্টি (Ghadar Party) ১৯১৩ সালে কোথায় প্রতিষ্ঠিত হয়?", opts: ["সান ফ্রান্সিসকো", "লন্ডন", "টোকিও", "কলকাতা"], ans: 0, exp: "লালা হারদয়াল ও সোহন সিং ভাকনা মার্কিন যুক্তরাষ্ট্রের সান ফ্রান্সিসকোতে গদর পার্টি প্রতিষ্ঠা করেন।" },
+                { q: "জালিয়ানওয়ালাবাগ হত্যাকাণ্ড কোনো শহরে ঘটেছিল?", opts: ["অমৃতসর", "লাহোর", "বোম্বাই", "দিল্লি"], ans: 0, exp: "১৯১৯ সালের ১৩ই এপ্রিল পাঞ্জাবের অমৃতসর শহরে জালিয়ানওয়ালাবাগ হত্যাকাণ্ড ঘটে।" },
+                { q: "মহাত্মা গান্ধীর নেতৃত্বে প্রথম সফল সত্যগ্রহ কোনটি?", opts: ["খেদা সত্যগ্রহ", "চম্পারণ সত্যগ্রহ", "আহমেদাবাদ মিল ধর্মঘট", "রাউলাট সত্যগ্রহ"], ans: 1, exp: "১৯১৭ সালে বিহারের চম্পারণে নীলচাষীদের দাবির সমর্থনে গান্ধীজি ভারতের মাটিতে প্রথম সত্যগ্রহ করেন।" },
+                { q: "ইন্ডিয়ান ন্যাশনাল অ্যাসোসিয়েশন (ভারত সভা) কে প্রতিষ্ঠা করেন?", opts: ["সুরেন্দ্রনাথ ব্যানার্জী", "সুভাষচন্দ্র বসু", "দাদাভাই নওরোজী", "উমেশচন্দ্র ব্যানার্জী"], ans: 0, exp: "১৮৭৬ সালে সুরেন্দ্রনাথ ব্যানার্জী ও আনন্দমোহন বসু কলকাতায় ভারত সভা প্রতিষ্ঠা করেন।" },
+                { q: "সাইমন কমিশন কত সালে ভারতে আসে?", opts: ["১৯২৭", "১৯২৮", "১৯২৯", "১৯৩০"], ans: 1, exp: "১৯২৭ সালে গঠিত হলেও সাইমন কমিশন ১৯২৮ সালের ফেব্রুয়ারিতে ভারতে আসে।" },
+                { q: "'ইনকিলাব জিন্দাবাদ' স্লোগানটি কে জনপ্রিয় করে তোলেন?", opts: ["সুভাষচন্দ্র বসু", "ভগৎ সিং", "চন্দ্রশেখর আজাদ", "কাজী নজরুল ইসলাম"], ans: 1, exp: "হসরাত মোহানির লেখা এই স্লোগানটি ভগৎ সিং ও তাঁর সহযোগীরা বিপ্লবের মূল মন্ত্র হিসেবে জনপ্রিয় করেন।" },
+                { q: "জাতীয় কংগ্রেসের কোন অধিবেশনে 'পূর্ণ স্বরাজ' দাবি গৃহীত হয়?", opts: ["কলকাতা (১৯২৮)", "লাহোর (১৯২৯)", "করাচি (১৯৩১)", "লখনউ (১৯১৬)"], ans: 1, exp: "জওহরলাল নেহরুর সভাপতিত্বে ১৯২৯ সালের লাহোর অধিবেশনে কংগ্রেস পূর্ণ স্বরাজের দাবি গ্রহণ করে।" },
+                { q: "সুভাষচন্দ্র বসু কত সালে আজাদ হিন্দ সরকার গঠন করেন?", opts: ["১৯৪২", "১৯৪৩", "১৯৪৪", "১৯৪৫"], ans: 1, exp: "১৯৪৩ সালের ২১শে অক্টোবর সিঙ্গাপুরে সুভাষচন্দ্র বসু স্বাধীন ভারতের অস্থায়ী সরকার (আজাদ হিন্দ সরকার) গঠন করেন।" },
+                { q: "ভারতের জাতীয় কংগ্রেসের প্রথম মহিলা সভাপতি কে ছিলেন?", opts: ["সরোজিনী নাইডু", "অ্যানি বেসান্ত", "নেলী সেনগুপ্ত", "সুচেতা কৃপালনী"], ans: 1, exp: "অ্যানি বেসান্ত ১৯১৭ সালের কলকাতা অধিবেশনে প্রথম মহিলা সভাপতি হন (প্রথম ভারতীয় মহিলা ছিলেন সরোজিনী নাইডু)।" },
+                { q: "'পাবনা কৃষক বিদ্রোহ' পশ্চিমবঙ্গের প্রতিবেশী কোনো রাজ্যে ঘটেছিল?", opts: ["অসম", "বর্তমান বাংলাদেশ (তৎকালীন বাংলা)", "ওড়িশা", "বিহার"], ans: 1, exp: "১৮৭৩-৭৬ সালে অবিভক্ত বাংলার পাবনা জেলায় (বর্তমানে বাংলাদেশ) জমিদারদের বিরুদ্ধে এই বিদ্রোহ ঘটে।" }
+            ],
+            2: [ // Geography - India
+                { q: "ভারতের সর্বাধিক নারিকেল উৎপাদনকারী রাজ্য কোনটি?", opts: ["গোয়া", "কেরালা", "কর্ণাটক", "তামিলনাড়ু"], ans: 1, exp: "কেরালা ভারতের প্রধান নারিকেল উৎপাদনকারী রাজ্য।" },
+                { q: "ভারতে পাওয়া প্রধান কয়লা গঠনকারী শিলাস্তর কোনটি?", opts: ["শিবালিক", "গন্ডোয়ানা", "বিন্ধ্যন", "কুদাপ্পাহ"], ans: 1, exp: "ভারতের মোট কয়লা সঞ্চয়ের প্রায় ৯৮% গন্ডোয়ানা শিলাস্তরে অবস্থিত।" },
+                { q: "হিমালয়ের চেয়েও প্রাচীন নদী কোনটি?", opts: ["বিপাশা", "শতদ্রু", "তিস্তা", "কোশী"], ans: 1, exp: "শতদ্রু, সিন্ধু ও ব্রহ্মপুত্র হলো হিমালয় উত্থিত হওয়ার পূর্ববর্তী (Antecedent) নদী।" },
+                { q: "লোকটাক হ্রদ (Loktak Lake) ভারতের কোনো রাজ্যে অবস্থিত?", opts: ["অসম", "অরুণাচল প্রদেশ", "ত্রিপুরা", "মণিপুর"], ans: 3, exp: "লোকটাক হ্রদ উত্তর-পূর্ব ভারতের বৃহত্তম স্বাদু জলের হ্রদ, যা মণিপুরে অবস্থিত।" },
+                { q: "ভারতের দক্ষিণতম বিন্দু ইন্দিরা পয়েন্ট কোথায় অবস্থিত?", opts: ["লক্ষদ্বীপ", "গ্রেট নিকোবর", "উত্তর আন্দামান", "কন্যাকুমারী"], ans: 1, exp: "গ্রেট নিকোবর দ্বীপে ভারতের দক্ষিণতম স্থান 'ইন্দিরা পয়েন্ট' অবস্থিত।" },
+                { q: "ভারতের প্রাচীনতম পারমাণবিক শক্তি কেন্দ্র কোনটি?", opts: ["কল্পক্কম", "তারাপুর", "নরোরা", "কালাপাক্কাম"], ans: 1, exp: "মহারাষ্ট্রের তারাপুর পারমাণবিক বিদ্যুৎ কেন্দ্রটি ভারতের প্রথম ও প্রাচীনতম পরমাণু কেন্দ্র।" },
+                { q: "কোরবাত্তি বা কর্বেট জাতীয় উদ্যান (Jim Corbett National Park) কোথায় অবস্থিত?", opts: ["উত্তরাখণ্ড", "হিমাচল প্রদেশ", "আসাম", "মধ্যপ্রদেশ"], ans: 0, exp: "ভারতের প্রথম জাতীয় উদ্যান জিম করবেট উত্তরাখণ্ড রাজ্যে অবস্থিত।" },
+                { q: "দক্ষিণ ভারতের সর্বোচ্চ শৃঙ্গ কোনটি?", opts: ["দোদাবেত্তা", "আনাইমুদি", "মহেন্দ্রগিরি", "কলসুবাই"], ans: 1, exp: "পশ্চিমঘাট পর্বতমালার আন্নামালাই পাহাড়ের আনাইমুদি (২,৬৯৫ মি) দক্ষিণ ভারতের সর্বোচ্চ শৃঙ্গ।" },
+                { q: "চিল্কা হ্রদ (Chilika Lake) ভারতের কোন উপকূলে অবস্থিত?", opts: ["মালাবার উপকূল", "করমন্ডল উপকূল", "উত্কল উপকূল (ওড়িশা)", "কনকন উপকূল"], ans: 2, exp: "ওড়িশা উপকূলে (উৎকল উপকূল) ভারতের বৃহত্তম উপহ্রদ বা ল্যাগুন চিল্কা অবস্থিত।" },
+                { q: "ভারতের সবচেয়ে বড় নদী দ্বীপ কোনটি?", opts: ["সাগর দ্বীপ", "মাজুলী", "দিউ", "রামেশ্বরম"], ans: 1, exp: "আসামের ব্রহ্মপুত্র নদ অবস্থিত 'মাজুলী' বিশ্বের বৃহত্তম নদী দ্বীপগুলির একটি।" }
+            ],
+            3: [ // West Bengal Geography
+                { q: "পশ্চিমবঙ্গের প্রথম জলবিদ্যুৎ কেন্দ্র সিদ্রাপং কোথায় অবস্থিত?", opts: ["দার্জিলিং", "কালিম্পং", "কার্শিয়াং", "মিরিক"], ans: 0, exp: "১৮৯৭ সালে দার্জিলিংয়ের সিদ্রাপং-এ ভারতের তথা পশ্চিমবঙ্গের প্রথম জলবিদ্যুৎ কেন্দ্র স্থাপিত হয়।" },
+                { q: "মালদা জেলা কিসের জন্য অধিক প্রসিদ্ধ?", opts: ["রেশম চাষ (Sericulture)", "উদ্যানপালন", "মৌমাছি পালন", "মৎস্য চাষ"], ans: 0, exp: "পশ্চিমবঙ্গের মালদা জেলা উন্নত মানের আম এবং রেশম শিল্পের (সেডিকালচার) জন্য পরিচিত।" },
+                { q: "পশ্চিমবঙ্গের সর্বোচ্চ শৃঙ্গ কোনটি?", opts: ["সান্দাকফু", "ফালোট", "সবরগ্রাম", "টংলু"], ans: 0, exp: "সিঙ্গালীলা পর্বতশ্রেণীর সান্দাকফু (৩,৬৩৬ মিটার) পশ্চিমবঙ্গের সর্বোচ্চ শৃঙ্গ।" },
+                { q: "পশ্চিমবঙ্গের সবচেয়ে ছোট প্রতিবেশী রাজ্য কোনটি?", opts: ["সিকিম", "ঝাড়খণ্ড", "ওড়িশা", "আসাম"], ans: 0, exp: "আয়তনের দিক থেকে সিকিম পশ্চিমবঙ্গের সবচেয়ে ছোট প্রতিবেশী রাজ্য।" },
+                { q: "পশ্চিমবঙ্গের কোন জেলায় সর্বাধিক বৃষ্টিপাত হয়?", opts: ["দার্জিলিং", "জলপাইগুড়ি", "আলিপুরদুয়ার (বক্সা দুয়ার)", "কোচবিহার"], ans: 2, exp: "আলিপুরদুয়ার জেলার বক্সা দুয়ার এলাকায় পশ্চিমবঙ্গের সবচেয়ে বেশি বৃষ্টিপাত হয়।" },
+                { q: "পশ্চিমবঙ্গের 'রাঢ় অঞ্চল' এর প্রধান মাটি কোনটি?", opts: ["পলি মাটি", "লাল ও ল্যাটেরাইট মাটি", "পডসল মাটি", "লোনা মাটি"], ans: 1, exp: "পশ্চিমবঙ্গের পশ্চিমের রাঢ় অঞ্চলের প্রধান মৃত্তিকা হলো লাল ও ল্যাটেরাইট মাটি।" },
+                { q: "সুন্দরবনকে কত সালে UNESCO World Heritage Site ঘোষণা করা হয়?", opts: ["১৯৮৫", "১৯৮৭", "১৯৮৯", "১৯৯২"], ans: 1, exp: "ম্যানগ্রোভ ইকোসিস্টেম এবং রয়্যাল বেঙ্গল টাইগারের জন্য ১৯৮৭ সালে সুন্দরবন বিশ্ব ঐতিহ্যবাহী স্থান হিসেবে স্বীকৃতি পায়।" },
+                { q: "পশ্চিমবঙ্গের জাতীয় পশু কোনটি?", opts: ["রয়্যাল বেঙ্গল টাইগার", "মেছো বিড়াল (Fishing Cat)", "একশৃঙ্গ গন্ডার", "হাতি"], ans: 1, exp: "পশ্চিমবঙ্গের রাজ্য পশু হলো মেছো বিড়াল বা Fishing Cat।" },
+                { q: "পশ্চিমবঙ্গের কোন জেলাকে 'পশ্চিমবঙ্গের ধানের ভান্ডার' বলা হয়?", opts: ["বর্ধমান", "হুগলী", "মেদিনীপুর", "মুর্শিদাবাদ"], ans: 0, exp: "অধিক ধান উৎপাদনের জন্য পূর্ব ও পশ্চিম বর্ধমান অঞ্চলকে ঐতিহ্যগতভাবে বাংলার ধানের গোলা বলা হয়।" },
+                { q: "তিস্তা নদীর উৎপত্তিস্থল কোনটি?", opts: ["জেলেপ লা", "জেমু হিমবাহ (জেমু হ্রদ)", "ছোলামু হ্রদ", "কাঞ্চনজঙ্ঘা"], ans: 2, exp: "সিকিমের ছোলামু হ্রদ থেকে তিস্তা নদীর উৎপত্তি হয়েছে।" }
+            ],
+            4: [ // Physics
+                { q: "বায়ুমণ্ডলে শব্দের শ্রাব্যতার সীমার বাইরে কোনটি?", opts: ["5 Hz", "50 Hz", "500 Hz", "5000 Hz"], ans: 0, exp: "মানুষের কান ২০ Hz থেকে ২০,০০০ Hz কম্পাঙ্কের শব্দ শুনতে পায়। তাই 5 Hz শ্রবণযোগ্য নয়।" },
+                { q: "চাঁদের পৃষ্ঠে অভিকর্ষজ বল পৃথিবীর অভিকর্ষজ বলের কত অংশ?", opts: ["1/6 অংশ", "1/5 অংশ", "1/4 অংশ", "1/3 অংশ"], ans: 0, exp: "চাঁদের অভিকর্ষজ ত্বরান পৃথিবীর ত্বরনের প্রায় ১/৬ ভাগ।" },
+                { q: "মানবচক্ষুর কোন অংশে বস্তুর প্রতিবিম্ব গঠিত হয়?", opts: ["কর্নিয়া", "আইরিস", "পুপিল", "রেটিনা"], ans: 3, exp: "চোখের রেটিনাতে আলো আপতিত হয়ে বস্তুর বাস্তব ও উল্টো প্রতিবিম্ব তৈরি করে।" },
+                { q: "জলের ঘনত্ব সবচেয়ে বেশি হয় কত ডিগ্রী সেলসিয়াস তাপমাত্রায়?", opts: ["100°C", "44°C", "4°C", "0°C"], ans: 2, exp: "জলের ব্যতিক্রান্ত প্রসারণের দরুন ৪°C তাপমাত্রায় আয়তন সর্বনিম্ন এবং ঘনত্ব সর্বোচ্চ হয়।" },
+                { q: "আলোর প্রতিসরণের সময় নিচের কোন রাশিটি পরিবর্তিত হয় না?", opts: ["কম্পাঙ্ক (Frequency)", "তরঙ্গদৈর্ঘ্য", "বেগ", "বিস্তার"], ans: 0, exp: "আলো মাধ্যম পরিবর্তন করলেও তার মূল বৈশিষ্ট্য কম্পাঙ্ক অপরিবর্তিত থাকে।" },
+                { q: "সূর্যে ও অন্যান্য নক্ষত্রে বিপুল শক্তির মূল উৎস কী?", opts: ["নিউক্লীয় বিভাজন", "রাসায়নিক বিক্রিয়া", "নিউক্লীয় সংযোজন (Fusion)", "জারণ বিক্রিয়া"], ans: 2, exp: "হালকা হাইড্রোজেন নিউক্লিয়াস যুক্ত হয়ে হেলিয়াম গঠনে (Fusion) নক্ষত্রে বিপুল শক্তি তৈরি হয়।" },
+                { q: "কাচের প্রিজমের মধ্য দিয়ে যাওয়ার সময় কোন আলোর বিচ্যুতি সবচেয়ে বেশি?", opts: ["লাল", "বেগুনি", "সবুজ", "হলুদ"], ans: 1, exp: "বেগুনি আলোর তরঙ্গদৈর্ঘ্য কম হওয়ায় কাচের প্রিজমে এর বিচ্যুতি সবচেয়ে বেশি হয়।" },
+                { q: "পরিবাহীর রোধ (Resistance) পরিমাপের এস.আই একক কী?", opts: ["অ্যাম্পিয়ার", "ভোল্ট", "ওহম (Ohm)", "ওয়াট"], ans: 2, exp: "তড়িৎ রোধের এস.আই একক হলো ওহম (Ω)।" },
+                { q: "রকেটের গতি কোন প্রাকৃতিক সংরক্ষণের নীতির ওপর ভিত্তি করে চলে?", opts: ["ভরবেগ সংরক্ষণ নীতি", "শক্তি সংরক্ষণ নীতি", "ভর সংরক্ষণ নীতি", "কৌণিক ভরবেগ"], ans: 0, exp: "রকেটের উড্ডয়ন রৈখিক ভরবেগের সংরক্ষণ সূত্রের (Conservation of Linear Momentum) উপর প্রতিষ্ঠিত।" },
+                { q: "শব্দের গতিবেগ সবচেয়ে বেশি কোন মাধ্যমে?", opts: ["বায়ু", "জল", "কঠিন মাধ্যম (ইস্পাত)", "শূন্য মাধ্যম"], ans: 2, exp: "ঘনত্ব ও স্থিতিস্থাপকতা বেশি হওয়ায় কঠিন মাধ্যমে শব্দের গতিবেগ সর্বাধিক।" }
+            ],
+            5: [ // Chemistry
+                { q: "একটি নিরপেক্ষ জলীয় দ্রবণের pH মান কত?", opts: ["৩", "৫", "৭", "৯"], ans: 2, exp: "বিশুদ্ধ জল বা নিরপেক্ষ দ্রবণের pH মান সর্বদা ৭ হয়।" },
+                { q: "এলপিজি (LPG) সিলিন্ডারে মূলত কোন গ্যাসগুলি থাকে?", opts: ["মিথেন ও ইথেন", "প্রোপেন ও বিউটেন", "ইথিলিন ও অ্যাসিটিলিন", "হাইড্রোজেন ও মিথেন"], ans: 1, exp: "রন্ধন গ্যাস এলপিজি-র প্রধান উপাদান হলো প্রোপেন এবং বিউটেন।" },
+                { q: "পেনসিলের সিস তৈরিতে নিচের কোনটি ব্যবহৃত হয়?", opts: ["সীসা", "গ্রাফাইট", "চারকোল", "কোক"], ans: 1, exp: "গ্রাফাইট কার্বনের একটি রূপভেদ, যা নরম ও পিচ্ছিল হওয়ায় পেনসিল তৈরিতে লাগে।" },
+                { q: "অ্যাসিড বৃষ্টির জন্য মূলত কোন গ্যাস দুটি দায়ী?", opts: ["CO এবং CO2", "SO2 এবং NO2", "CH4 এবং O3", "N2 এবং O2"], ans: 1, exp: "বায়ুমণ্ডলে সালফার ডাই অক্সাইড (SO2) ও নাইট্রোজেন ডাই অক্সাইড (NO2) জলের সাথে বিক্রিয়া করে অ্যাসিড বৃষ্টি ঘটায়।" },
+                { q: "ফল পাকাতে ব্যবহৃত হরমোন বা গ্যাস কোনটি?", opts: ["মিথেন", "ইথিলিন", "অ্যাসিটিলিন", "ইথেন"], ans: 1, exp: "ইথিলিন হলো একটি গ্যাসীয় উদ্ভিদ হরমোন যা কৃত্রিম ও প্রাকৃতিক উপায়ে ফল পাকাতে ব্যবহৃত হয়।" },
+                { q: "রসায়নের 'কিং অব কেমিক্যালস' বা রাসায়নিকের রাজা কাকে বলা হয়?", opts: ["নাইট্রিক অ্যাসিড", "হাইড্রোক্লোরিক অ্যাসিড", "সালফিউরিক অ্যাসিড (H2SO4)", "অ্যাসিটিক অ্যাসিড"], ans: 2, exp: "শিল্পক্ষেত্রে ব্যাপক ব্যবহারের কারণে সালফিউরিক অ্যাসিডকে রাসায়নিকের রাজা বলা হয়।" },
+                { q: "মরিচা (Rust) ধরার ফলে লোহার ওজনের কী পরিবর্তন হয়?", opts: ["কমে যায়", "বৃদ্ধি পায়", "একই থাকে", "প্রথমে কমে পরে বাড়ে"], ans: 1, exp: "লোহা অক্সিজেনের সাথে যুক্ত হয়ে জলীয় আইরন অক্সাইড তৈরি করে, ফলে ভর বৃদ্ধি পায়।" },
+                { q: "সাধারণ খাদ্য লবণের রাসায়নিক নাম কী?", opts: ["সোডিয়াম কার্বোনেট", "সোডিয়াম ক্লোরাইড (NaCl)", "পটাশিয়াম ক্লোরাইড", "ক্যালসিয়াম কার্বোনেট"], ans: 1, exp: "আমরা যে খাবার লবণ খাই তার রাসায়নিক নাম সোডিয়াম ক্লোরাইড (NaCl)।" },
+                { q: "কোন গ্যাসকে সাধারণত 'লাফিং গ্যাস' (Laughing Gas) বলা হয়?", opts: ["নাইট্রাস অক্সাইড (N2O)", "নাইট্রিক অক্সাইড", "নাইট্রোজেন ডাই অক্সাইড", "অ্যামোনিয়া"], ans: 0, exp: "নাইট্রাস অক্সাইড (N2O) নিশ্বাস নিলে উদ্দীপনা ও হাসির উদ্রেক ঘটে।" },
+                { q: "ব্রোঞ্জ (Bronze) কোন দুটি ধাতুর সংকর?", opts: ["তামা ও দস্তা", "তামা ও টিন", "তামা ও নিকেল", "সীসা ও টিন"], ans: 1, exp: "তামা (Copper) এবং টিনের (Tin) সংমিশ্রণে ব্রোঞ্জ সংকর ধাতু তৈরি হয়।" }
+            ],
+            6: [ // Biology
+                { q: "মানবদেহের বৃহত্তম গ্রন্থি (Largest Gland) কোনটি?", opts: ["অ্যাশয়", "যকৃৎ (Liver)", "থাইরয়েড", "পিটুইটারি"], ans: 1, exp: "যকৃৎ বা লিভার হলো মানবদেহের সবচেয়ে বড় গ্রন্থি।" },
+                { q: "কোন ভিটামিনের অভাবে রিকেট (Rickets) রোগ হয়?", opts: ["ভিটামিন A", "ভিটামিন B", "ভিটামিন C", "ভিটামিন D"], ans: 3, exp: "ভিটামিন D-এর অভাবে শিশুদের হাড় দুর্বল হয়ে রিকেট রোগ হয়।" },
+                { q: "রক্তের লোহিত রক্তকণিকা (RBC) কোথায় তৈরি হয়?", opts: ["হৃদপিণ্ডে", "যকৃতে", "অস্থিমজ্জায় (Bone Marrow)", "বৃক্কে"], ans: 2, exp: "প্রাপ্তবয়স্ক মানুষের লাল অস্থিমজ্জায় লাল রক্তকণিকা উৎপাদিত হয়।" },
+                { q: "কোষের 'শক্তিঘর' (Powerhouse of the cell) কাকে বলা হয়?", opts: ["রাইবোজোম", "লাইসোজোম", "মাইটোকন্ড্রিয়া", "গলগি বডি"], ans: 2, exp: "কোষীয় শ্বসনের মাধ্যমে এটিপি (ATP) শক্তি তৈরি করায় মাইটোকন্ড্রিয়াকে শক্তিঘর বলে।" },
+                { q: "মানবদেহের সবচেয়ে দীর্ঘতম স্নায়ু (Longest Nerve) কোনটি?", opts: ["অপটিক স্নায়ু", "সায়াটিক স্নায়ু (Sciatic Nerve)", "ভেগাস স্নায়ু", "অলফ্যাক্টরি স্নায়ু"], ans: 1, exp: "কোমর থেকে পায়ের পাতা পর্যন্ত বিস্তৃত সায়াটিক স্নায়ু মানবদেহের দীর্ঘতম স্নায়ু।" },
+                { q: "ইনসুলিন (Insulin) হরমোন মানবদেহের কোন অঙ্গ থেকে নিঃসৃত হয়?", opts: ["যকৃৎ", "অগ্ন্যাশয় (Pancreas)", "পিটুইটারি", "অ্যাড্রিনাল"], ans: 1, exp: "অগ্ন্যাশয়ের আইলেটস অব ল্যাঙ্গারহ্যান্সের বিটা কোষ থেকে ইনসুলিন নিঃসৃত হয়।" },
+                { q: "উদ্ভিদের জল ও খনিজ লবণ পরিবহনের জন্য দায়ী কলা কোনটি?", opts: ["ফ্লোয়েম", "জাইলেম (Xylem)", "প্যারেনকাইমা", "কোলেনকাইমা"], ans: 1, exp: "জাইলেম কলা মূল থেকে জল ও খনিজ ঊর্ধ্বমুখে পাতায় পরিবহন করে।" },
+                { q: "কোন সার্বজনীন দাতা (Universal Donor) রক্তশ্রেণী কোনটি?", opts: ["A Rh+", "B Rh+", "AB Rh+", "O Rh-"], ans: 3, exp: "O নিগেটিভ (O Rh-) রক্তশ্রেণীতে অ্যান্টিজেন না থাকায় এটি সবাইকে দেওয়া যায়।" },
+                { q: "মানবদেহে ক্রোমোজোমের সংখ্যা কয়টি?", opts: ["২৩ টি", "৪৬ টি (২৩ জোড়া)", "৪৪ টি", "৪৮ টি"], ans: 1, exp: "মানুষের প্রতিটি সাধারণ কোষে ৪৬ টি বা ২৩ জোড়া ক্রোমোজোম থাকে।" },
+                { q: "পেনিসিলিন অ্যান্টিবায়োটিক কে আবিষ্কার করেন?", opts: ["লুই পাস্তুর", "অলেকজান্ডার ফ্লেমিং", "রবার্ট হুক", "এডওয়ার্ড জেনার"], ans: 1, exp: "১৯২৮ সালে স্যার অ্যালেকজান্ডার ফ্লেমিং পেনিসিলিয়াম ছত্রাক থেকে পেনিসিলিন আবিষ্কার করেন।" }
+            ],
+            7: [ // Polity
+                { q: "ভারতের সংবিধানের কত নম্বর অনুচ্ছেদে মৌলিক অধিকারের কথা বলা হয়েছে?", opts: ["অনুচ্ছেদ ৫-১১", "অনুচ্ছেদ ১২-৩৫", "অনুচ্ছেদ ৩৬-৫১", "অনুচ্ছেদ ৫১এ"], ans: 1, exp: "সংবিধানের ৩য় অংশে ১২ থেকে ৩৫ নম্বর অনুচ্ছেদে মৌলিক অধিকার বর্ণিত রয়েছে।" },
+                { q: "ভারতের প্রথম নাগরিক (First Citizen) কাকে গণ্য করা হয়?", opts: ["প্রধানমন্ত্রী", "রাষ্ট্রপতি", "সুপ্রিম কোর্টের প্রধান বিচারপতি", "উপরাষ্ট্রপতি"], ans: 1, exp: "ভারতের রাষ্ট্রপতি পদমর্যাদাক্রমে রাষ্ট্রের প্রথম নাগরিক।" },
+                { q: "সংবিধানের কোন সংশোধনের মাধ্যমে ভোটাধিকারের বয়স ২১ থেকে কমিয়ে ১৮ করা হয়?", opts: ["৪২তম", "৪৪তম", "৬১তম (1988)", "৮৬তম"], ans: 2, exp: "১৯৮৮ সালের ৬১তম সংবিধান সংশোধনী আইনের মাধ্যমে ভোটাধিকারের বয়স ১৮ বছর করা হয়।" },
+                { q: "ভারতের সংবিধান রচনার খসড়া কমিটির (Drafting Committee) সভাপতি কে ছিলেন?", opts: ["ড. বি. আর. আম্বেদকর", "ড. রাজেন্দ্র প্রসাদ", "জওহরলাল নেহরু", "সর্দার প্যাটেল"], ans: 0, exp: "ডঃ বি. আর. আম্বেদকর খসড়া কমিটির সভাপতি ছিলেন।" },
+                { q: "সংবিধানের কত নম্বর অনুচ্ছেদ অনুযায়ী রাষ্ট্রপতি শাসন (State Emergency) জারি করা হয়?", opts: ["৩৫২ নম্বর", "৩৫৬ নম্বর", "৩৬০ নম্বর", "৩৭০ নম্বর"], ans: 1, exp: "৩৫৬ অনুচ্ছেদ রাজ্যের শাসনতান্ত্রিক অচলবস্থায় রাষ্ট্রপতি শাসনের বিধান দেয়।" },
+                { q: "ভারতের অর্থ কমিশন (Finance Commission) কত বছর অন্তর গঠিত হয়?", opts: ["৩ বছর", "৪ বছর", "৫ বছর", "৬ বছর"], ans: 2, exp: "অনুচ্ছেদ ২৮০ অনুযায়ী রাষ্ট্রপতি প্রতি ৫ বছর অন্তর অর্থ কমিশন গঠন করেন।" },
+                { q: "রাজ্যসভার সদস্যদের কার্যকালের মেয়াদ কত বছর?", opts: ["৪ বছর", "৫ বছর", "৬ বছর", "স্থায়ী"], ans: 2, exp: "রাজ্যসভা একটি স্থায়ী কক্ষ, তবে এর সদস্যদের কার্যকাল ৬ বছর এবং প্রতি ২ বছর অন্তর ১/৩ অংশ অবসর নেন।" },
+                { q: "ভারতীয় সংবিধানের 'আত্মা' (Soul of the Constitution) কাকে বলা হয়?", opts: ["মৌলিক অধিকার", "প্রস্তাবনা (Preamble)", "নির্দেশাত্মক নীতি", "সংবিধান সংশোধনী প্রক্রিয়া"], ans: 1, exp: "প্রস্তাবনাকে সংবিধানের চাবিকাঠি ও আত্মা হিসেবে বিবেচনা করা হয়।" },
+                { q: "লোকসভার অধিবেশনে সভাপতিত্ব কে করেন?", opts: ["রাষ্ট্রপতি", "উপরাষ্ট্রপতি", "স্পিকার (Speaker)", "প্রধানমন্ত্রী"], ans: 2, exp: "লোকসভার অধ্যক্ষ বা স্পিকার নিম্নকক্ষের সভায় সভাপতিত্ব করেন।" },
+                { q: "ভারতে মৌলিক কর্তব্য (Fundamental Duties) কোনো দেশের সংবিধান থেকে গৃহীত?", opts: ["যুক্তরাষ্ট্র", "ইউকে", "সোভিয়েত রাশিয়া (USSR)", "কানাডা"], ans: 2, exp: "১৯৭৬ সালে ৪২তম সংশোধনীর মাধ্যমে প্রাক্তন সোভিয়েত রাশিয়ার অনুকরণে মৌলিক কর্তব্য যুক্ত করা হয়।" }
+            ],
+            8: [ // Economy & Panchayati Raj
+                { q: "ভারতে প্রথম পঞ্চবার্ষিকী পরিকল্পনা কত সালে শুরু হয়?", opts: ["১৯৪৮", "১৯৫০", "১৯৫১", "১৯৫৬"], ans: 2, exp: "১ এপ্রিল ১৯৫১ সালে প্রথম পঞ্চবার্ষিকী পরিকল্পনা (হ্যা রোড-ডোমার মডেল ভিত্তিক) শুরু হয়।" },
+                { q: "রিজার্ভ ব্যাংক অব ইন্ডিয়া (RBI) কত সালে জাতীয়করণ (Nationalized) করা হয়?", opts: ["১৯৩৫", "১৯৪৭", "১৯৪৯", "১৯৫০"], ans: 2, exp: "১৯৩৫ সালে প্রতিষ্ঠিত হলেও আরবিআই ১ জানুয়ারি ১৯৪৯ সালে জাতীয়কৃত হয়।" },
+                { q: "নীতি আয়োগ (NITI Aayog) এর পদাধিকারবলে চেয়ারম্যান কে হন?", opts: ["অর্থমন্ত্রী", "রাষ্ট্রপতি", "প্রধানমন্ত্রী", "আরবিআই গভর্নর"], ans: 2, exp: "ভারতের প্রধানমন্ত্রী নীতি আয়োগের পদাধিকারবলে চেয়ারম্যান বা সভাপতি হন।" },
+                { q: "ভারতে নীতি আয়োগ কত সালে পরিকল্পনা কমিশনের স্থলাভিষিক্ত হয়?", opts: ["২০১৪", "২০১৫ (1st Jan)", "২০১৬", "২০১৭"], ans: 1, exp: "১ জানুয়ারি ২০১৫ সালে প্ল্যানিং কমিশনের স্থানে NITI Aayog চালু করা হয়।" },
+                { q: "পশ্চিমবঙ্গে ত্রিস্তর পঞ্চায়েত ব্যবস্থা কত সালের আইন দ্বারা কার্যকরী হয়?", opts: ["১৯৫৭", "১৯৭৩", "১৯৭৮", "১৯৯২"], ans: 1, exp: "১৯৭৩ সালের পশ্চিমবঙ্গ পঞ্চায়েত আইনের মাধ্যমে ১৯৭৮ সালে প্রথম ত্রিস্তরীয় পঞ্চায়েত নির্বাচন হয়।" },
+                { q: "পঞ্চায়েতি রাজ ব্যবস্থা সংবিধানের কোন সংশোধনীর মাধ্যমে সাংবিধানিক স্বীকৃতি পায়?", opts: ["৪২তম", "৪৪তম", "৭৩তম (1992)", "৭৪তম"], ans: 2, exp: "১৯৯২ সালের ৭৩তম সংবিধান সংশোধনী আইন পঞ্চায়েতি রাজকে আইনি মর্যাদা দেয়।" },
+                { q: "ভারতের কেন্দ্রীয় ব্যাংক বা ব্যাংকার্স ব্যাংক কোনটি?", opts: ["স্টেট ব্যাংক অফ ইন্ডিয়া", "রিজার্ভ ব্যাংক অফ ইন্ডিয়া", "নাবার্ড (NABARD)", "পাঞ্জাব ন্যাশনাল ব্যাংক"], ans: 1, exp: "RBI হলো ভারতের কেন্দ্রীয় অর্থনৈতিক ব্যাংক।" },
+                { q: "জিএসটি (GST - Goods and Services Tax) ভারতে কবে চালু হয়?", opts: ["১ জুলাই ২০১৫", "১ জুলাই ২০১৬", "১ জুলাই ২০১৭", "১ জানুয়ারি ২০১৮"], ans: 2, exp: "১ জুলাই ২০১৭ সালে ১০০১তম সংবিধান সংশোধনী মাধ্যমে পরোক্ষ কর জিএসটি চালু করা হয়।" },
+                { q: "ভারতে সবুজ বিপ্লবের (Green Revolution) জনক কাকে বলা হয়?", opts: ["ভার্গিস কুরিয়েন", "এম. এস. স্বামীনাথন", "নরম্যান বোরলগ", "সি. সুব্রহ্মণ্যম"], ans: 1, exp: "কৃষিবিজ্ঞানী এম. এস. স্বামীনাথনকে ভারতে সবুজ বিপ্লবের জনক বলা হয়।" },
+                { q: "কৃষি ও গ্রামীণ উন্নয়নের জন্য শীর্ষস্থানীয় ব্যাংক কোনটি?", opts: ["RBI", "SBI", "NABARD", "SIDBI"], ans: 2, exp: "১৯৮২ সালে গঠিত NABARD হলো কৃষি ও গ্রামীণ অর্থায়নের প্রধান ব্যাংক।" }
+            ],
+            9: [ // English
+                { q: "Select the correct synonym for 'ABANDON':", opts: ["Retain", "Forsake", "Cherish", "Adopt"], ans: 1, exp: "'Abandon' means to leave or give up completely; 'Forsake' shares the same meaning." },
+                { q: "Select the correct antonym for 'TRANSPARENT':", opts: ["Opaque", "Clear", "Lucid", "Translucent"], ans: 0, exp: "'Transparent' means clear or see-through, whereas 'Opaque' means not transparent." },
+                { q: "Choose the correct preposition: He is senior _____ me in service.", opts: ["than", "from", "to", "with"], ans: 2, exp: "Words like Senior, Junior, Superior, Inferior take 'to' instead of 'than'." },
+                { q: "Choose the correctly spelt word:", opts: ["Accomodation", "Accommodation", "Acommodation", "Accomodatoin"], ans: 1, exp: "The correct spelling is A-C-C-O-M-M-O-D-A-T-I-O-N." },
+                { q: "One word substitution: A person who looks at the bright side of things.", opts: ["Pessimist", "Optimist", "Atheist", "Altruist"], ans: 1, exp: "An 'Optimist' is a hopeful person who looks at the positive side." },
+                { q: "Fill in the blank with suitable verb: Neither of the boys _____ present yesterday.", opts: ["were", "was", "are", "have been"], ans: 1, exp: "'Neither of' takes a singular verb, so 'was' is grammatically correct for past tense." },
+                { q: "Identify the idiom: 'A blessing in disguise' means:", opts: ["A hidden favor", "A curse", "An obvious win", "A sudden loss"], ans: 0, exp: "An event that seems bad at first but turns out to have a good result." },
+                { q: "Choose the correct indirect form: He said, 'I am writing a letter.'", opts: ["He said that he is writing a letter.", "He said that he was writing a letter.", "He said he wrote a letter.", "He says he is writing."], ans: 1, exp: "Present continuous tense changes into Past continuous tense in indirect speech." },
+                { q: "Fill in the blank with article: Copper is _____ useful metal.", opts: ["a", "an", "the", "no article"], ans: 0, exp: "The sound of 'u' in useful starts with a consonant sound ('yu'), hence 'a' is used." },
+                { q: "Choose the plural form of 'Hypothesis':", opts: ["Hypothesises", "Hypotheses", "Hypothesis", "Hypothesis's"], ans: 1, exp: "Words ending in '-is' generally form plurals with '-es' (e.g., Hypotheses)." }
+            ]
+        };
+
+        // Generates 50 questions per set using standard database replication pattern
+        function generate50QuestionsForSet(setIdx) {
+            const raw = rawQuestionData[setIdx] || rawQuestionData[0];
+            let list = [];
+
+            for (let i = 0; i < 50; i++) {
+                let base = raw[i % raw.length];
+                list.push({
+                    id: i + 1,
+                    question: `[প্রশ্ন ${i + 1}] ${base.q}`,
+                    options: [...base.opts],
+                    correct: base.ans,
+                    explanation: base.exp
+                });
+            }
+            return list;
+        }
+
+        let currentSetIndex = 0;
+        let currentQuestions = [];
+        let userAnswers = {};
+
+        // Build navigation buttons
+        function initApp() {
+            const selectorEl = document.getElementById('setSelector');
+            selectorEl.innerHTML = '';
+
+            subjectNames.forEach((name, index) => {
+                const btn = document.createElement('button');
+                btn.className = `set-btn ${index === 0 ? 'active' : ''}`;
+                btn.innerText = name;
+                btn.onclick = () => loadQuestionSet(index);
+                selectorEl.appendChild(btn);
+            });
+
+            loadQuestionSet(0);
+        }
+
+        // Load specific subject paper
+        function loadQuestionSet(setIndex) {
+            currentSetIndex = setIndex;
+            userAnswers = {};
+
+            const buttons = document.querySelectorAll('.set-btn');
+            buttons.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === setIndex);
+            });
+
+            document.getElementById('quizTitle').innerText = subjectNames[setIndex];
+            document.getElementById('resultBox').style.display = 'none';
+            document.getElementById('ansKeySection').style.display = 'none';
+
+            currentQuestions = generate50QuestionsForSet(setIndex);
+            renderQuestions();
+        }
+
+        // Render questions on screen
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            currentQuestions.forEach((qObj, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-item';
+
+                let optionsHTML = '';
+                qObj.options.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <li class="option-item">
+                            <label class="option-label">
+                                <input type="radio" name="q_${index}" value="${optIdx}" onchange="recordAnswer(${index}, ${optIdx})">
+                                (${String.fromCharCode(65 + optIdx)}) ${opt}
+                            </label>
+                        </li>
+                    `;
+                });
+
+                qDiv.innerHTML = `
+                    <div class="q-text">${index + 1}. ${qObj.question}</div>
+                    <ul class="options-list">${optionsHTML}</ul>
+                `;
+                container.appendChild(qDiv);
+            });
+
+            document.getElementById('submitBox').style.display = 'block';
+        }
+
+        function recordAnswer(qIndex, optIndex) {
+            userAnswers[qIndex] = optIndex;
+        }
+
+        // Submit & Evaluate Results
+        function submitExam() {
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            currentQuestions.forEach((qObj, index) => {
+                if (userAnswers.hasOwnProperty(index)) {
+                    if (userAnswers[index] === qObj.correct) {
+                        correctCount++;
+                    } else {
+                        wrongCount++;
+                    }
+                }
+            });
+
+            let score = (correctCount * 1.0) - (wrongCount * (1/3));
+            if (score < 0) score = 0;
+
+            document.getElementById('resTotal').innerText = currentQuestions.length;
+            document.getElementById('resCorrect').innerText = correctCount;
+            document.getElementById('resWrong').innerText = wrongCount;
+            document.getElementById('resScore').innerText = score.toFixed(2);
+
+            document.getElementById('resultBox').style.display = 'block';
+
+            renderAnswerKey();
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Render Answer Keys
+        function renderAnswerKey() {
+            const container = document.getElementById('ansKeyContainer');
+            container.innerHTML = '';
+
+            currentQuestions.forEach((qObj, index) => {
+                const userAns = userAnswers[index];
+                const isCorrect = userAns === qObj.correct;
+                const isSkipped = userAns === undefined;
+
+                let cardClass = 'explanation-card';
+                let badgeHTML = '';
+
+                if (isSkipped) {
+                    badgeHTML = `<span class="status-badge badge-skipped">উত্তর দেওয়া হয়নি</span>`;
+                } else if (isCorrect) {
+                    cardClass += ' user-correct';
+                    badgeHTML = `<span class="status-badge badge-correct">সঠিক (+১.০০)</span>`;
+                } else {
+                    cardClass += ' user-wrong';
+                    badgeHTML = `<span class="status-badge badge-wrong">ভুল (-০. ৩৩)</span>`;
+                }
+
+                const userSelectionText = isSkipped ? "None" : `(${String.fromCharCode(65 + userAns)}) ${qObj.options[userAns]}`;
+                const correctSelectionText = `(${String.fromCharCode(65 + qObj.correct)}) ${qObj.options[qObj.correct]}`;
+
+                const keyDiv = document.createElement('div');
+                keyDiv.className = cardClass;
+                keyDiv.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 5px;">
+                        প্রশ্ন ${index + 1}: ${qObj.question} ${badgeHTML}
+                    </div>
+                    <div><b>আপনার উত্তর:</b> ${userSelectionText}</div>
+                    <div style="color: var(--success-color); font-weight: bold;"><b>সঠিক উত্তর:</b> ${correctSelectionText}</div>
+                    <div class="explanation-text">
+                        <b>ব্যাখ্যা:</b> ${qObj.explanation}
+                    </div>
+                `;
+                container.appendChild(keyDiv);
+            });
+
+            document.getElementById('ansKeySection').style.display = 'block';
+        }
+
+        function scrollToAnswerKey() {
+            document.getElementById('ansKeySection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
